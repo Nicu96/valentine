@@ -57,6 +57,9 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
+      position: relative;
+      margin-bottom: 35px;
+      margin-top: 35px;
     }
 
     button {
@@ -74,22 +77,81 @@
       transform: scale(0.95);
     }
 
+    /* YES BUTTON */
     #yesBtn {
       background-color: #ff4d6d;
       color: white;
+      box-shadow: 0 0 15px #ff4d6d, 0 0 30px #ff4d6d;
+      animation: pulse 1.5s infinite;
+      position: relative;
+      z-index: 2;
     }
 
     #yesBtn:hover {
       background-color: #ff3860;
     }
 
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px #ff4d6d; }
+      50% { box-shadow: 0 0 25px #ff4d6d; }
+      100% { box-shadow: 0 0 10px #ff4d6d; }
+    }
+
+    /* NO BUTTON */
     #noBtn {
       background-color: #adb5bd;
       color: white;
+      margin-left: 35px;
     }
 
     #noBtn:hover {
       background-color: #9ca3af;
+    }
+
+    /* YES WRAPPER + ARROWS */
+    .yes-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .arrow {
+      position: absolute;
+      font-size: 22px;
+      animation: bounce 1s infinite;
+      pointer-events: none;
+    }
+
+    .arrow-top {
+      top: -35px;
+      left: 35%;
+      transform: translateX(-50%);
+    }
+
+    .arrow-bottom {
+      bottom: -35px;
+      left: 35%;
+      transform: translateX(-50%);
+    }
+
+    .arrow-left {
+      left: -35px;
+      top: 30%;
+      transform: translateY(-50%);
+    }
+
+    .arrow-right {
+      right: -35px;
+      top: 30%;
+      transform: translateY(-50%);
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-6px) scale(1.2);
+      }
     }
 
     #retryBtn {
@@ -138,37 +200,6 @@
       0% { transform: scale(0.7); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
-
-    /* Tablet and smaller screens */
-    @media (max-width: 480px) {
-      .container {
-        padding: 15px;
-      }
-
-      h1 {
-        margin-bottom: 15px;
-      }
-
-      .buttons {
-        gap: 10px;
-      }
-
-      button {
-        padding: 10px 20px;
-        min-width: 85px;
-      }
-
-      img {
-        margin-bottom: 15px;
-      }
-    }
-
-    /* Larger screens */
-    @media (min-width: 481px) {
-      .container {
-        padding: 30px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -180,7 +211,17 @@
     />
     <h1 id="question">Wanna be my Valentine? 🥺</h1>
     <div class="buttons" id="buttons">
-      <button id="yesBtn">Yes 💕</button>
+      
+      <div class="yes-wrapper">
+        <div class="arrow arrow-top">👇</div>
+        <div class="arrow arrow-left">👉</div>
+
+        <button id="yesBtn">Yes 💕</button>
+
+		<div class="arrow arrow-right">👈</div>
+        <div class="arrow arrow-bottom">👆</div>
+      </div>
+
       <button id="noBtn">No 🙃</button>
     </div>
   </div>
@@ -195,35 +236,29 @@
 
     let yesScale = 1;
 
-    // Increase YES button size
     noBtn.addEventListener("click", () => {
       yesScale += 0.2;
       yesBtn.style.transform = `scale(${yesScale})`;
     });
 
-    // YES clicked
     yesBtn.addEventListener("click", () => {
-      // Confetti
       confetti({
         particleCount: 150,
         spread: 70,
         origin: { y: 0.6 }
       });
 
-      // Change GIF
       mainGif.src =
         "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3RpcHlyczMxcGFhYno2YXN4eHN3ZDNtaTQ4dHJwNWMwcjI1eHg2ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/85NbGstFaElEO1Wusd/giphy.gif";
 
       question.remove();
       buttons.remove();
 
-      // Add text
       const loveText = document.createElement("div");
       loveText.className = "love-text";
       loveText.innerText = "Yaaay! 💖 So... dinner when? 💕";
       container.appendChild(loveText);
 
-      // Add retry button
       const retryBtn = document.createElement("button");
       retryBtn.id = "retryBtn";
       retryBtn.innerText = "Reset the magic? ✨";
@@ -234,7 +269,6 @@
       });
     });
 
-    // Falling hearts generator
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
