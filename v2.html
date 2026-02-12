@@ -158,7 +158,7 @@ button {
 @keyframes bounceTime { 0%,100% { transform: scale(1.6); } 50% { transform: scale(1.9); } }
 
 /* Score bounce */
-#score { display:inline-block; transition: transform 0.3s; }
+#score { display:inline-block; transition: transform 0.3s; color: gold; }
 .bounceScore { animation: bounceScore 0.5s ease; }
 @keyframes bounceScore { 0% { transform: scale(1); } 25% { transform: scale(1.5); } 50% { transform: scale(1.8); } 75% { transform: scale(1.5); } 100% { transform: scale(1); } }
 
@@ -188,7 +188,7 @@ button {
 
   <div id="gameArea">
     <h2>Catch My Heart 💖</h2>
-    <p>Score: <span id="score">0</span> | Time: <span id="time">20</span>s</p>
+    <p>Score: <span id="score">0</span> | Time: <span id="time">20</span></p>
     <div id="playField"></div>
     <div id="dragBarContainer">
       <input type="range" id="dragBar" min="0" max="100" value="50">
@@ -328,7 +328,7 @@ function startGame() {
   gameInterval = setInterval(()=>{
     timeLeft--;
     timeDisplay.innerText=timeLeft;
-    if(timeLeft<=10){
+    if(timeLeft<=5){
       timeDisplay.classList.add("flash");
     } else { timeDisplay.classList.remove("flash"); }
 
