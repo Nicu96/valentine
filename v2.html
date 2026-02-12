@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Forever 💖</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #1a1a2e, #0f0f1b);
+  color: white;
+}
+
+/* ✨ STARS BACKGROUND */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+/* 💎 MAIN CARD */
+.container {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 40px;
+  border-radius: 25px;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 60px rgba(255, 77, 109, 0.4);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+/* 3D hover tilt */
+.container:hover {
+  transform: translateY(-50%) rotateX(5deg) rotateY(-5deg);
+}
+
+/* Title */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ff4d6d, #ff9a9e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Typewriter text */
+#message {
+  min-height: 60px;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+}
+
+button {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+  box-shadow: 0 0 20px #ff4d6d;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background: #666;
+  color: white;
+  position: relative;
+}
+
+/* Floating hearts */
+.heart {
+  position: fixed;
+  font-size: 20px;
+  animation: floatUp 5s linear forwards;
+  z-index: 1;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Final Message */
+.love-final {
+  font-size: 1.4rem;
+  margin-top: 20px;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Music button */
+.music-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff4d6d;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #ff4d6d;
+}
+
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="container">
+  <h1>My Love 💖</h1>
+  <div id="message"></div>
+  <div class="buttons">
+    <button id="yesBtn">Yes, forever 💍</button>
+    <button id="noBtn">No 🙈</button>
+  </div>
+</div>
+
+<button class="music-toggle" id="musicBtn">🎵</button>
+
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9bce4c.mp3" type="audio/mp3">
+</audio>
+
+<script>
+const messageText = "From the moment I saw your smile, my world changed. You are my today, my tomorrow, my forever. So tell me... will you be my Valentine? 💖";
+const messageElement = document.getElementById("message");
+
+let i = 0;
+function typeWriter() {
+  if (i < messageText.length) {
+    messageElement.innerHTML += messageText.charAt(i);
+    i++;
+    setTimeout(typeWriter, 40);
+  }
+}
+typeWriter();
+
+/* 🌟 Generate stars */
+for (let i = 0; i < 120; i++) {
+  const star = document.createElement("div");
+  star.className = "star";
+  star.style.top = Math.random() * 100 + "%";
+  star.style.left = Math.random() * 100 + "%";
+  star.style.animationDuration = Math.random() * 3 + 2 + "s";
+  document.querySelector(".stars").appendChild(star);
+}
+
+/* 💖 Hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 400);
+
+/* 🎵 Music toggle */
+const music = document.getElementById("bgMusic");
+document.getElementById("musicBtn").onclick = () => {
+  if (music.paused) music.play();
+  else music.pause();
+};
+
+/* 😈 Escaping No button */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+/* 💘 YES CLICK */
+document.getElementById("yesBtn").onclick = () => {
+  confetti({ particleCount: 200, spread: 100 });
+
+  document.querySelector(".buttons").remove();
+  messageElement.innerHTML = "";
+
+  const finalMsg = document.createElement("div");
+  finalMsg.className = "love-final";
+  finalMsg.innerHTML = "You just made me the happiest person alive 💖✨<br>Forever starts now.";
+  document.querySelector(".container").appendChild(finalMsg);
+};
+</script>
+
+</body>
+</html>
