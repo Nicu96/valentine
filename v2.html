@@ -52,7 +52,7 @@ h1 {
 
 /* Input for her name */
 #nameInputArea {
-  margin-bottom: 20px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -93,8 +93,6 @@ button {
 #yesBtn:hover { transform: scale(1.1); }
 
 #noBtn { background: #666; color: white; }
-
-#replayBtn { display:none; margin-top:20px; background:#ff9a9e; color:white; }
 
 /* 🎮 Game */
 #gameArea { display: none; margin-top: 20px; }
@@ -152,7 +150,7 @@ button {
 @keyframes floatUp { from { transform: translateY(100vh); opacity: 1; } to { transform: translateY(-10vh); opacity: 0; } }
 
 /* Final message */
-.final-text { margin-top: 25px; font-size: 1.4rem; animation: fadeIn 2s ease forwards; }
+.final-text { font-size: 1.4rem; animation: fadeIn 2s ease forwards; }
 
 /* Timer effect */
 #time { transition: all 0.3s ease; display:inline-block; }
@@ -174,10 +172,10 @@ button {
 <div class="stars"></div>
 
 <div class="container">
-  <h1>My Love 💖</h1>
+  <h1>My Forever 💖</h1>
 
   <div id="nameInputArea">
-    <input type="text" id="herName" placeholder="Her name...">
+    <input type="text" id="herName" placeholder="Type your lovely name...">
     <button id="startBtn">Start 💕</button>
   </div>
 
@@ -198,7 +196,6 @@ button {
   </div>
 
   <div id="finalMessage" class="final-text"></div>
-  <button id="replayBtn">Replay 🔄</button>
 </div>
 
 <script>
@@ -233,7 +230,6 @@ const playField = document.getElementById("playField");
 const scoreDisplay = document.getElementById("score");
 const timeDisplay = document.getElementById("time");
 const finalMessage = document.getElementById("finalMessage");
-const replayBtn = document.getElementById("replayBtn");
 const dragBarContainer = document.getElementById("dragBarContainer");
 const dragBar = document.getElementById("dragBar");
 
@@ -246,7 +242,7 @@ startBtn.onclick = () => {
   document.getElementById("nameInputArea").style.display = "none";
   buttonsDiv.style.display = "flex";
 
-  const messageText = `From the moment you smiled at me, my world changed, ${herName}. You are my today, my tomorrow, my forever. So... will you be my Valentine? 💖`;
+  const messageText = `From the moment I saw your smile, my world changed, ${herName}. You are my today, my tomorrow, my forever. So... will you be my Valentine? 💖`;
   let i=0;
   messageElement.innerHTML="";
   function typeWriter(){
@@ -268,6 +264,7 @@ noBtn.addEventListener("mouseover", function() {
 yesBtn.onclick = () => {
   buttonsDiv.style.display="none";
   messageElement.innerHTML="";
+  messageElement.style.minHeight = '0';
   gameArea.style.display="block";
 
   dragBarContainer.style.display="block"; // show drag bar
@@ -331,7 +328,7 @@ function startGame() {
   gameInterval = setInterval(()=>{
     timeLeft--;
     timeDisplay.innerText=timeLeft;
-    if(timeLeft<=5){
+    if(timeLeft<=10){
       timeDisplay.classList.add("flash");
     } else { timeDisplay.classList.remove("flash"); }
 
@@ -350,15 +347,8 @@ function endGame(){
   dragBarContainer.style.display="none";
   finalMessage.innerHTML=`My heart is one and only, ${herName}. Always yours! 💖`;
   confetti({ particleCount: 300, spread: 120 });
-  replayBtn.style.display="inline-block";
 }
 
-/* Replay */
-replayBtn.onclick = () => {
-  replayBtn.style.display="none";
-  finalMessage.innerHTML="";
-  startGame();
-};
 </script>
 
 </body>
