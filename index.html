@@ -65,6 +65,17 @@
       color: white;
     }
 
+    #retryBtn {
+      background-color: #457b9d;
+      color: white;
+      margin-top: 15px;
+    }
+
+    #retryBtn:hover {
+      background-color: #1d3557;
+      transform: scale(1.05);
+    }
+
     /* Falling hearts */
     .heart {
       position: fixed;
@@ -147,6 +158,16 @@
       loveText.className = "love-text";
       loveText.innerText = "Yaaay! 💖 So... dinner when? 💕";
       container.appendChild(loveText);
+
+      // Add retry button
+      const retryBtn = document.createElement("button");
+      retryBtn.id = "retryBtn";
+      retryBtn.innerText = "Ask again? 🔄";
+      container.appendChild(retryBtn);
+
+      retryBtn.addEventListener("click", () => {
+        location.reload();
+      });
     });
 
     // Falling hearts generator
