@@ -256,9 +256,16 @@ startBtn.onclick = () => {
 };
 
 /* Escape No */
-noBtn.addEventListener("mouseover", function() {
-  this.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
-});
+function moveNoButton(btn) {
+  btn.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
+}
+
+// Desktop: mouse hover
+noBtn.addEventListener("mouseover", () => moveNoButton(noBtn));
+
+// Mobile: touch
+noBtn.addEventListener("touchstart", () => moveNoButton(noBtn));
+
 
 /* Start Game on Yes */
 yesBtn.onclick = () => {
